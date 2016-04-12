@@ -9,14 +9,14 @@
       <h2>Welcome to chat</h2>
       <p>
         <span> Chat messages: </span>
-        <ul>
-          <li>Message 1</li>
-          <li class="clearable">Message 2</li>
-          <li class="clearable">Message 3</li>
+        <ul data-lift="Chat.messages">
+          <li class="chat-message">Message 1</li>
+          <li class="chat-message clearable">Message 2</li>
+          <li class="chat-message clearable">Message 3</li>
         </ul>
       </p>
-      <form>
-        <input type="text" id="chat-in">
+      <form method="post" data-lift="Chat.submit">
+        <input type="text" id="chat-in" name="in">
         <input type="submit" value="Submit">
       </form>
     </div>
