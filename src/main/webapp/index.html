@@ -7,18 +7,18 @@
   <body data-lift-content-id="main">
     <div id="main" data-lift="surround?with=default;at=content">
       <h2>Welcome to chat</h2>
+      <span>Say something!</span>
+      <form method="post" data-lift="Chat.submit">
+        <input type="text" id="chat-in" name="in">
+        <input type="submit" value="Submit">
+      </form>
       <p>
-        <span> Chat messages: </span>
         <ul data-lift="Chat.messages">
           <li class="chat-message">Message 1</li>
           <li class="chat-message clearable">Message 2</li>
           <li class="chat-message clearable">Message 3</li>
         </ul>
       </p>
-      <form method="post" data-lift="Chat.submit">
-        <input type="text" id="chat-in" name="in">
-        <input type="submit" value="Submit">
-      </form>
     </div>
   </body>
 </html>
