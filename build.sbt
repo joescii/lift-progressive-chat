@@ -1,4 +1,4 @@
-name := "Lift Progressive Chat"
+name := "Lift VDOM Chat"
 
 version := "0.0.1"
 
