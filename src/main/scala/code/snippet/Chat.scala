@@ -2,7 +2,7 @@ package code.snippet
 
 import net.liftweb.http.js.JsCmd
 import net.liftweb.http.js.JsCmds.{SetValById, SetElemById}
-import net.liftweb.http.{SHtml, S}
+import net.liftweb.http.{UpdateDOM, SHtml, S}
 import net.liftweb.util.ClearClearable
 import net.liftweb.util.Helpers._
 
@@ -30,7 +30,10 @@ object Chat {
 
     def onAjax():JsCmd = {
       append(msg)
-      SetValById("chat-in", "")
+
+      UpdateDOM(
+        thenDo = SetValById("chat-in", "")
+      )
     }
 
     "name=in" #> (SHtml.text(msg, msg = _, "id" -> "chat-in") ++ SHtml.hidden(onAjax))
