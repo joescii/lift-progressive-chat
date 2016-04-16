@@ -26,12 +26,13 @@ object Chat {
   }
 
   def submit = {
+    S.session.foreach(_.plumbUpdateDOM())
     var msg = ""
 
     def onAjax():JsCmd = {
       append(msg)
 
-      new UpdateDOM & SetValById("chat-in", "")
+      UpdateDOM & SetValById("chat-in", "")
     }
 
     "name=in" #> (SHtml.text(msg, msg = _, "id" -> "chat-in") ++ SHtml.hidden(onAjax))
