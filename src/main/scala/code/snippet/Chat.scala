@@ -9,7 +9,7 @@ import net.liftweb.util.Helpers._
 import scala.xml.NodeSeq
 
 object Chat {
-  private [this] var ms = List.empty[String]
+  private [this] var ms = List("default message")
 
   def messages = ".chat-message *" #> ms & ClearClearable
 
@@ -31,9 +31,7 @@ object Chat {
     def onAjax():JsCmd = {
       append(msg)
 
-      UpdateDOM(
-        thenDo = SetValById("chat-in", "")
-      )
+      new UpdateDOM & SetValById("chat-in", "")
     }
 
     "name=in" #> (SHtml.text(msg, msg = _, "id" -> "chat-in") ++ SHtml.hidden(onAjax))
