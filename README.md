@@ -2,7 +2,7 @@
 
 This project is the "Ubiquitous Chat App" for Lift, but with server-side virtual DOM diffing.
 The heavy-lifting (pun!) is done by Lift in [this branch](https://github.com/lift/framework/tree/joe-vdom).
-I'm currently investigating [scala-vdom](https://github.com/joescii/scala-vdom/tree/joe) for performing the calculations.
+Switch to that branch and do a `publishLocal` then run this project as usual with `container:start`.
 
 Also note that this approach will support progressive enhancement.
 That is, it will work even if scripting is disabled on the browser.
