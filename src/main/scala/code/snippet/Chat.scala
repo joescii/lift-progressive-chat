@@ -1,12 +1,11 @@
 package code.snippet
 
+import net.liftweb.actor.LiftActor
 import net.liftweb.http.js.JsCmd
-import net.liftweb.http.js.JsCmds.{SetValById, SetElemById}
-import net.liftweb.http.{SendUpdateDOM, SHtml, S}
+import net.liftweb.http.js.JsCmds.SetValById
+import net.liftweb.http._
 import net.liftweb.util.ClearClearable
 import net.liftweb.util.Helpers._
-
-import scala.xml.NodeSeq
 
 object Chat {
   private [this] var ms = List("default message")
@@ -26,16 +25,25 @@ object Chat {
   }
 
   def submit = {
-    S.session.foreach(_.plumbUpdateDOM())
+    S.session.foreach(_.plumbUpdateDOM(listenTo = List(ChatActor)))
     var msg = ""
 
     def onAjax():JsCmd = {
       append(msg)
 
-      SendUpdateDOM()
+//      SendUpdateDOM()
+      ChatActor ! ""
       SetValById("chat-in", "")
     }
 
     "name=in" #> (SHtml.text(msg, msg = _, "id" -> "chat-in") ++ SHtml.hidden(onAjax))
+  }
+}
+
+object ChatActor extends LiftActor with ListenerManager {
+  override def createUpdate = ""
+
+  override def lowPriority = {
+    case _ => sendListenersMessage(UpdateDOM())
   }
 }
