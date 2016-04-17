@@ -1,5 +1,8 @@
 package code.snippet
 
+import java.util.concurrent.atomic.AtomicReference
+import java.util.function.UnaryOperator
+
 import net.liftweb.actor.LiftActor
 import net.liftweb.http.js.JsCmd
 import net.liftweb.http.js.JsCmds.SetValById
@@ -8,13 +11,14 @@ import net.liftweb.util.ClearClearable
 import net.liftweb.util.Helpers._
 
 object Chat {
-  private [this] var ms = List("default message")
+  private [this] val ms = new AtomicReference(List("default message"))
 
-  def messages = ".chat-message *" #> ms & ClearClearable
+  def messages = ".chat-message *" #> ms.get() & ClearClearable
 
-  private [this] def append(msg:String):Unit = {
-    ms = (ms :+ msg).takeRight(10)
-  }
+  private [this] def append(msg:String):Unit =
+    ms.updateAndGet(new UnaryOperator[List[String]] {
+      override def apply(m: List[String]) = m :+ msg  
+    })
 
   private [this] def doPost:Unit = for {
     r <- S.request if r.post_?
