@@ -8,12 +8,14 @@
     <div id="main" data-lift="surround?with=default;at=content">
       <h2>Welcome to chat</h2>
       <span>Say something!</span>
-      <form method="post" data-lift="form.ajax">
-        <div data-lift="Chat.submit">
-          <input type="text" id="chat-in" name="in">
-          <input type="submit" value="Submit">
-        </div>
-      </form>
+      <div data-lift-ignore-on-update>
+        <form method="post" data-lift="form.ajax">
+          <div data-lift="Chat.submit">
+            <input type="text" id="chat-in" name="in">
+            <input type="submit" value="Submit">
+          </div>
+        </form>
+      </div>
       <p>
         <ul data-lift="Chat.messages">
           <li class="chat-message">Message 1</li>
