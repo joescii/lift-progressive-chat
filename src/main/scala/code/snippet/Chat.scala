@@ -17,7 +17,7 @@ object Chat {
 
   private [this] def append(msg:String):Unit =
     ms.updateAndGet(new UnaryOperator[List[String]] {
-      override def apply(m: List[String]) = m :+ msg  
+      override def apply(m: List[String]) = (m :+ msg).takeRight(5)
     })
 
   private [this] def doPost:Unit = for {
